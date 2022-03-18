@@ -4,3 +4,4 @@ httpd_user: "apache"
 httpd_group: "apache"
 httpd_domain: "blog.juliousgonsalves94.tk"
 httpd_port: 80
+memory_limit: 128

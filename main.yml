@@ -44,6 +44,19 @@
         owner: "{{ httpd_user }}"
         group: "{{ httpd_group }}"
 
+    - name: "Updating php ini values"
+      template:
+        src: "php.ini.tmpl"
+        dest: "/etc/php.ini"
+        owner: "root"
+        group: "root"
+
+    - name: "Restarting/Enabling php fpm"
+      service:
+        name: php-fpm
+        state: restarted
+        enabled: true
+
     - name: "Restart/Enable Apache service"
       service:
         name: httpd
