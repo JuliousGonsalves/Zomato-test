@@ -20,6 +20,27 @@
         owner: "root"
         group: "root"
 
+    - name: "Adding Apache virtual host conf"
+      template:
+        src: "virtualhost.conf.tmpl"
+        dest: "/etc/httpd/conf.d/{{httpd_domain}}.conf"
+        owner: "{{ httpd_user }}"
+        group: "{{ httpd_group }}"
+
+    - name: "Adding document path for {{httpd_domain}}"
+      file:
+        path: "/var/www/html/{{ httpd_domain }}"
+        state: directory
+        owner: "{{ httpd_user }}"
+        group: "{{ httpd_group }}"
+
+    - name: "Adding Sampletest.html files for Apache"
+      copy:
+        src: "index.html"
+        dest: "/var/www/html/{{ httpd_domain }}"
+        owner: "{{ httpd_user }}"
+        group: "{{ httpd_group }}"
+
     - name: "Restart/Enable Apache service"
       service:
         name: httpd
