@@ -13,6 +13,9 @@
         name: httpd
         state: present
 
+    - name: "Enabling php support for Apache webserver"
+      shell: amazon-linux-extras install php7.4 -y
+
     - name: "Creating Apache httpd conf file"
       template:
         src: "httpd.conf.tmpl"
@@ -40,6 +43,19 @@
         dest: "/var/www/html/{{ httpd_domain }}"
         owner: "{{ httpd_user }}"
         group: "{{ httpd_group }}"
+
+    - name: "Updating php ini values"
+      template:
+        src: "php.ini.tmpl"
+        dest: "/etc/php.ini"
+        owner: "root"
+        group: "root"
+
+    - name: "Restarting/Enabling php fpm"
+      service:
+        name: php-fpm
+        state: restarted
+        enabled: true
 
     - name: "Restart/Enable Apache service"
       service:
