@@ -1,0 +1,20 @@
+---
+
+- name: "LAMP stack using Ansible"
+  become: true
+  hosts: amazon
+  vars_files:
+    - variable.yml
+
+  tasks:
+
+    - name: "Installing Apache webserver"
+      yum:
+        name: httpd
+        state: present
+
+    - name: "Restart/Enable Apache service"
+      service:
+        name: httpd
+        state: restarted
+        enabled: true
