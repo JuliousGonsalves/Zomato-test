@@ -13,6 +13,13 @@
         name: httpd
         state: present
 
+    - name: "Creating Apache httpd conf file"
+      template:
+        src: "httpd.conf.tmpl"
+        dest: "/etc/httpd/conf/httpd.conf"
+        owner: "root"
+        group: "root"
+
     - name: "Restart/Enable Apache service"
       service:
         name: httpd
