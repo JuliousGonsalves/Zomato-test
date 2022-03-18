@@ -13,6 +13,9 @@
         name: httpd
         state: present
 
+    - name: "Enabling php support for Apache webserver"
+      shell: amazon-linux-extras install php7.4 -y
+
     - name: "Creating Apache httpd conf file"
       template:
         src: "httpd.conf.tmpl"
